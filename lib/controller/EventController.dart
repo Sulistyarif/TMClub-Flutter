@@ -11,6 +11,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
+import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tmcapp/client.dart';
@@ -18,7 +19,7 @@ import 'package:tmcapp/controller/AkunController.dart';
 import 'package:tmcapp/controller/AuthController.dart';
 import 'package:tmcapp/controller/BottomTabController.dart';
 import 'package:tmcapp/controller/CompanyController.dart';
-import 'package:tmcapp/controller/SearchController.dart';
+import 'package:tmcapp/controller/SearchController.dart' as sc;
 import 'package:tmcapp/model/event_tmc.dart';
 import 'package:tmcapp/model/event_tmc_detil.dart';
 import 'package:tmcapp/model/invoice.dart';
@@ -28,7 +29,7 @@ import 'package:tmcapp/model/registrant.dart';
 import 'package:tmcapp/model/resources.dart';
 import 'package:tmcapp/model/survey.dart';
 import 'package:path/path.dart' as path;
-import 'package:open_file_safe/open_file_safe.dart';
+// import 'package:open_file_safe/open_file_safe.dart';
 
 import 'dart:io' show Platform;
 
@@ -63,7 +64,7 @@ class EventController extends GetxController {
     }
     ListEvent.sort((a, b) => b.date!.compareTo(a.date!));
     if (BottomTabController.to.bottomTabControl.index == 1) {
-      SearchController.to.setSearchingRef("event");
+      sc.SearchController.to.setSearchingRef("event");
     }
     isLoading(false);
     return;

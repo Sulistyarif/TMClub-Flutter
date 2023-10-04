@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -233,8 +232,8 @@ class _InvoiceDetilScreenViewState extends State<InvoiceDetilScreenView> {
                               return GFListTile(
                                 padding: EdgeInsets.all(0),
                                 icon: Text("#${index + 1}"),
-                                margin: EdgeInsets.only(
-                                    left: 0, top: 0,right: 8),
+                                margin:
+                                    EdgeInsets.only(left: 0, top: 0, right: 8),
                                 title: Text(
                                     invoice.value.items[index]
                                         ['registrant_name'],

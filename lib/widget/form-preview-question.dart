@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:date_time_picker/date_time_picker.dart';
+// import 'package:date_time_picker/date_time_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:tmcapp/controller/AuthController.dart';
 import 'package:tmcapp/controller/CompanyController.dart';
 import 'package:tmcapp/controller/EventController.dart';
@@ -518,7 +519,7 @@ class FormPreviewQuestionSurvey extends StatelessWidget {
 
   Widget generateResponseJawabanDate() {
     return Container(
-      child: DateTimePicker(
+      /* child: DateTimePicker(
         readOnly: false,
         decoration: const InputDecoration(
             contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
@@ -546,41 +547,50 @@ class FormPreviewQuestionSurvey extends StatelessWidget {
           }
           return null;
         },
+      ), */
+      child: SfDateRangePicker(
+        selectionMode: DateRangePickerSelectionMode.single,
+        initialSelectedDate: DateTime.now(),
       ),
     );
   }
 
   Widget generateResponseJawabanTime() {
     return Container(
-        child: DateTimePicker(
-      readOnly: false,
-      decoration: const InputDecoration(
-          contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
-          labelText: "HH:MM",
-          hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
-          labelStyle: TextStyle(color: Colors.grey, fontSize: 13),
-          border: OutlineInputBorder()),
-      type: DateTimePickerType.time,
-      dateMask: 'HH:MM',
-      controller: null,
-      //initialValue: _initialValue,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
-      //icon: Icon(Icons.event),
-      dateLabelText: 'Time',
-      use24HourFormat: true,
-      locale: const Locale('id', 'ID'),
-      onChanged: (val) {
-        print(val);
-        print(DateTime.parse(val).toIso8601String());
-      },
-      validator: (val) {
-        if (val == "") {
-          return 'Required Filled!';
-        }
-        return null;
-      },
-    ));
+      /* child: DateTimePicker(
+        readOnly: false,
+        decoration: const InputDecoration(
+            contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 15),
+            labelText: "HH:MM",
+            hintStyle: TextStyle(color: Colors.grey, fontSize: 14),
+            labelStyle: TextStyle(color: Colors.grey, fontSize: 13),
+            border: OutlineInputBorder()),
+        type: DateTimePickerType.time,
+        dateMask: 'HH:MM',
+        controller: null,
+        //initialValue: _initialValue,
+        firstDate: DateTime(2000),
+        lastDate: DateTime(2100),
+        //icon: Icon(Icons.event),
+        dateLabelText: 'Time',
+        use24HourFormat: true,
+        locale: const Locale('id', 'ID'),
+        onChanged: (val) {
+          print(val);
+          print(DateTime.parse(val).toIso8601String());
+        },
+        validator: (val) {
+          if (val == "") {
+            return 'Required Filled!';
+          }
+          return null;
+        },
+      ), */
+      child: SfDateRangePicker(
+        selectionMode: DateRangePickerSelectionMode.single,
+        initialSelectedDate: DateTime.now(),
+      ),
+    );
   }
 
   Widget generateResponseJawabanRating() {

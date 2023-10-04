@@ -8,14 +8,14 @@ import 'package:photo_view/photo_view_gallery.dart';
 import 'package:tmcapp/controller/AuthController.dart';
 import 'package:tmcapp/controller/BlogController.dart';
 import 'package:tmcapp/controller/EventController.dart';
-import 'package:tmcapp/controller/SearchController.dart';
+import 'package:tmcapp/controller/SearchController.dart' as sc;
 import 'package:tmcapp/model/list_id.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
   CustomSearchDelegate({required this.lookupController});
 
   // Demo list to show querying
-  final SearchController lookupController;
+  final sc.SearchController lookupController;
   final BlogController blogController = BlogController.to;
   final EventController eventController = EventController.to;
   // List  searchTerms =  <SearchItem>[].obs;

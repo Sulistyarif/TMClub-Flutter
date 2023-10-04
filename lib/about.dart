@@ -4,12 +4,12 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart' as mbs;
 import 'package:tmcapp/controller/AboutController.dart';
 import 'package:tmcapp/controller/AppController.dart';
 import 'package:tmcapp/controller/AuthController.dart';
 import 'package:tmcapp/controller/BottomTabController.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:tmcapp/controller/EventController.dart';
 import 'package:tmcapp/model/media.dart';
 import 'package:tmcapp/model/resources.dart';
@@ -95,7 +95,8 @@ class _AboutScreenState extends State<AboutScreen> {
                               data: htmlData.value,
                               style: {
                                 "tr": Style(
-                                    padding: EdgeInsets.all(4),
+                                    // padding: EdgeInsets.all(4),
+                                    padding: HtmlPaddings.all(4),
                                     border: Border.all(
                                         color: GFColors.DARK, width: 0.3))
                               },
@@ -180,7 +181,7 @@ class _AboutScreenState extends State<AboutScreen> {
                                                 highlightColor: CupertinoColors
                                                     .darkBackgroundGray,
                                                 onTap: () {
-                                                  showMaterialModalBottomSheet<
+                                                  mbs.showMaterialModalBottomSheet<
                                                       String>(
                                                     expand: false,
                                                     context: context,
@@ -241,7 +242,9 @@ class _AboutScreenState extends State<AboutScreen> {
                                         .toList(),
                                   ),
                                 )),
-                                SizedBox(height: 10,)
+                            SizedBox(
+                              height: 10,
+                            )
                           ],
                         )),
                 )));

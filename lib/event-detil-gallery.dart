@@ -2,13 +2,13 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart' as mbs;
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:skeletons/skeletons.dart';
 import 'package:tmcapp/controller/AppController.dart';
@@ -158,7 +158,7 @@ class _EventDetilGalleryScreenState extends State<EventDetilGalleryScreen> {
   Widget buildImageCard(ImageMedia item) {
     return InkWell(
       onTap: () {
-        showMaterialModalBottomSheet<String>(
+        mbs.showMaterialModalBottomSheet<String>(
           expand: false,
           context: Get.context!,
           backgroundColor: Colors.transparent,
@@ -270,7 +270,7 @@ class _EventDetilGalleryScreenState extends State<EventDetilGalleryScreen> {
       imageController
           .setUploadResult(ImageMedia(pk: 0, display_name: "", image: ""));
       void _showModal() {
-        Future<void> future = showMaterialModalBottomSheet(
+        Future<void> future = mbs.showMaterialModalBottomSheet(
           expand: false,
           context: this.context,
           backgroundColor: Colors.transparent,
@@ -307,8 +307,7 @@ class _EventDetilGalleryScreenState extends State<EventDetilGalleryScreen> {
                 pk: resultImage.pk,
                 display_name: "",
                 image: resultImage.image));
-            GFToast.showToast(
-                'Success Add Photo!', Get.context!,
+            GFToast.showToast('Success Add Photo!', Get.context!,
                 trailing: const Icon(
                   Icons.check_circle,
                   color: GFColors.SUCCESS,
@@ -316,8 +315,7 @@ class _EventDetilGalleryScreenState extends State<EventDetilGalleryScreen> {
                 toastPosition: GFToastPosition.TOP,
                 toastBorderRadius: 5.0);
           } else {
-            GFToast.showToast(
-                'Failed!', Get.context!,
+            GFToast.showToast('Failed!', Get.context!,
                 trailing: const Icon(
                   Icons.error_outline,
                   color: GFColors.DANGER,

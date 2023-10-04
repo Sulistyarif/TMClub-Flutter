@@ -3,7 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
-import 'package:date_time_picker/date_time_picker.dart';
+// import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
@@ -11,11 +11,12 @@ import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart' as mbs;
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:tmcapp/client.dart';
 import 'package:tmcapp/controller/AppController.dart';
 import 'package:tmcapp/controller/BottomTabController.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:tmcapp/model/event_tmc_detil.dart';
 import 'package:tmcapp/model/media.dart';
 import 'package:tmcapp/preview-image.dart';
@@ -43,8 +44,9 @@ class _EventEditScreenState extends State<EventEditScreen> {
   TextEditingController titleController = TextEditingController();
   TextEditingController deskripsiController = TextEditingController();
   TextEditingController priceController = TextEditingController();
-  TextEditingController dateController =
-      TextEditingController(text: DateTime.now().toString());
+  /* TextEditingController dateController =
+      TextEditingController(text: DateTime.now().toString()); */
+  DateRangePickerController dateController = DateRangePickerController();
   TextEditingController venueController = TextEditingController();
   final imageController = Get.put(ImageController());
   final mainImageMedia = ImageMedia(pk: 0, display_name: "", image: "").obs;
@@ -60,7 +62,7 @@ class _EventEditScreenState extends State<EventEditScreen> {
     venueController.text = itemEdit.venue!;
     titleController.text = itemEdit.title!;
     deskripsiController.text = itemEdit.description!;
-    dateController.text = itemEdit.date!.toIso8601String();
+    // dateController.text = itemEdit.date!.toIso8601String();
     var f = NumberFormat("###.0#");
     priceController.text = CurrencyTextInputFormatter(
             locale: 'id', symbol: 'Rp. ', decimalDigits: 0)
@@ -128,7 +130,7 @@ class _EventEditScreenState extends State<EventEditScreen> {
                         const SizedBox(
                           height: 15,
                         ),
-                        DateTimePicker(
+                        /* DateTimePicker(
                           decoration: const InputDecoration(
                               contentPadding: EdgeInsets.symmetric(
                                   vertical: 0, horizontal: 15),
@@ -158,6 +160,11 @@ class _EventEditScreenState extends State<EventEditScreen> {
                             }
                             return null;
                           },
+                        ), */
+                        SfDateRangePicker(
+                          selectionMode: DateRangePickerSelectionMode.single,
+                          initialSelectedDate: itemEdit.date!,
+                          controller: dateController,
                         ),
                         const SizedBox(
                           height: 15,
@@ -271,7 +278,8 @@ class _EventEditScreenState extends State<EventEditScreen> {
                                               radius: 0);
                                         },
                                         onTap: () {
-                                          showMaterialModalBottomSheet<String>(
+                                          mbs.showMaterialModalBottomSheet<
+                                              String>(
                                             expand: false,
                                             context: context,
                                             backgroundColor: Colors.transparent,
@@ -398,8 +406,7 @@ class _EventEditScreenState extends State<EventEditScreen> {
                                     margin: const EdgeInsets.only(top: 15),
                                     child: is_free.value == false
                                         ? TextFormField(
-                                            inputFormatters: <
-                                                TextInputFormatter>[
+                                            inputFormatters: <TextInputFormatter>[
                                                 CurrencyTextInputFormatter(
                                                     locale: 'id',
                                                     symbol: 'Rp. ',
@@ -489,7 +496,7 @@ class _EventEditScreenState extends State<EventEditScreen> {
                               var eventUpload = {
                                 "title": titleController.text.trim(),
                                 "venue": venueController.text.trim(),
-                                "date": DateTime.parse(dateController.text)
+                                "date": dateController.selectedDate!
                                     .toIso8601String(),
                                 "main_image": mainImageMedia.value.pk,
                                 "description": deskripsiController.text.trim(),
@@ -528,8 +535,7 @@ class _EventEditScreenState extends State<EventEditScreen> {
                                         if (value == false)
                                           {
                                             GFToast.showToast(
-                                                'Opps, Failed',
-                                                context,
+                                                'Opps, Failed', context,
                                                 trailing: const Icon(
                                                   Icons.dangerous,
                                                   color: GFColors.DANGER,
@@ -578,7 +584,7 @@ class _EventEditScreenState extends State<EventEditScreen> {
       imageController
           .setUploadResult(ImageMedia(pk: 0, display_name: "", image: ""));
       void _showModal() {
-        Future<void> future = showMaterialModalBottomSheet(
+        Future<void> future = mbs.showMaterialModalBottomSheet(
           expand: false,
           context: this.context,
           backgroundColor: Colors.transparent,

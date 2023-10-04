@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ import 'package:tmcapp/controller/AkunController.dart';
 import 'package:tmcapp/controller/AppController.dart';
 import 'package:tmcapp/controller/InvoiceController.dart';
 import 'package:tmcapp/controller/NotifikasiController.dart';
-import 'package:tmcapp/controller/SearchController.dart';
+import 'package:tmcapp/controller/SearchController.dart' as sc;
 import 'package:tmcapp/controller/SurveyController.dart';
 import 'package:tmcapp/event-create.dart';
 import 'package:tmcapp/event-detil-daftar-peserta.dart';
@@ -96,6 +97,7 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await FirebaseAuth.instance.signOut();
   ControllerBinding().dependencies();
   //await initializeDateFormatting('id_ID', null);
   runApp(GetMaterialApp(
@@ -260,7 +262,7 @@ class CreateNavigationDrawer extends StatelessWidget {
   final chatController = Get.put(ChatController());
   final imageController = Get.put(ImageController());
   final eventController = Get.put(EventController());
-  final searchController = Get.put(SearchController());
+  final searchController = Get.put(sc.SearchController());
   final akunController = Get.put(AkunController());
   final surveyController = Get.put(SurveyController());
   final notifikasiController = Get.put(NotifikasiController());
@@ -269,6 +271,7 @@ class CreateNavigationDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    authController.checkShowButtonIos();
     print("Loading Controller");
     final GlobalKey<ScaffoldState> _scaffoldKey =
         new GlobalKey<ScaffoldState>();

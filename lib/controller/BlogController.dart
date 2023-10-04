@@ -9,13 +9,13 @@ import 'package:get/get.dart';
 import 'package:tmcapp/client.dart';
 import 'package:tmcapp/controller/AuthController.dart';
 import 'package:tmcapp/controller/BottomTabController.dart';
-import 'package:tmcapp/controller/SearchController.dart';
+import 'package:tmcapp/controller/SearchController.dart' as sc;
 import 'package:tmcapp/model/blog.dart';
 
 class BlogController extends GetxController {
   var ListBlog = <BlogItem>[].obs;
   static BlogController get to => Get.find<BlogController>();
-  final bottomTabController  = BottomTabController.to;
+  final bottomTabController = BottomTabController.to;
   final authController = AuthController.to;
   final isLoading = false.obs;
 
@@ -40,9 +40,9 @@ class BlogController extends GetxController {
               ApiClient().base_url + blog['main_image_url'].toString());
       ListBlog.add(item);
     }
-     ListBlog.sort((a, b) => b.pk.compareTo(a.pk));
-    if(BottomTabController.to.bottomTabControl.index==0){
-      SearchController.to.setSearchingRef("blog");
+    ListBlog.sort((a, b) => b.pk.compareTo(a.pk));
+    if (BottomTabController.to.bottomTabControl.index == 0) {
+      sc.SearchController.to.setSearchingRef("blog");
     }
     isLoading(false);
     return;

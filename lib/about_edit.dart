@@ -10,8 +10,8 @@ import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:html_editor_enhanced/html_editor.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart' as mbs;
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:tmcapp/controller/AboutController.dart';
 import 'package:tmcapp/controller/AppController.dart';
 import 'package:tmcapp/controller/ImageController.dart';
@@ -317,7 +317,7 @@ class _AboutEditScreenState extends State<AboutEditScreen> {
                                       radius: 0);
                                 },
                                 onTap: () {
-                                  showMaterialModalBottomSheet<String>(
+                                  mbs.showMaterialModalBottomSheet<String>(
                                     expand: false,
                                     context: context,
                                     backgroundColor: Colors.transparent,

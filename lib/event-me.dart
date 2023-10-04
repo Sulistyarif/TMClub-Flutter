@@ -12,7 +12,7 @@ import 'package:tmcapp/controller/AppController.dart';
 import 'package:tmcapp/controller/BottomTabController.dart';
 import 'package:flutter/material.dart';
 import 'package:tmcapp/controller/CompanyController.dart';
-import 'package:tmcapp/controller/SearchController.dart';
+import 'package:tmcapp/controller/SearchController.dart' as sc;
 import 'package:tmcapp/model/event_tmc.dart';
 import 'package:tmcapp/widget/skeleton.dart';
 
@@ -28,7 +28,7 @@ class _EventMeScreenState extends State<EventMeScreen> {
   final bottomTabControl = BottomTabController.to;
   final eventController = EventController.to;
   final authController = AuthController.to;
-  final SearchController searchController = SearchController.to;
+  final sc.SearchController searchController = sc.SearchController.to;
   late ScrollController _scrollController;
   final Color _foregroundColor = Colors.white;
   final isLoading = true.obs;
@@ -282,15 +282,18 @@ class _EventMeScreenState extends State<EventMeScreen> {
                                         backgroundColor:
                                             CupertinoColors.lightBackgroundGray,
                                         titleStyle: const TextStyle(
-                                            color: CupertinoColors.darkBackgroundGray, fontSize: 16),
+                                            color: CupertinoColors
+                                                .darkBackgroundGray,
+                                            fontSize: 16),
                                         middleTextStyle: const TextStyle(
-                                            color: CupertinoColors.darkBackgroundGray, fontSize: 14),
+                                            color: CupertinoColors
+                                                .darkBackgroundGray,
+                                            fontSize: 14),
                                         textCancel: "Cancel",
                                         textConfirm: "Yes",
                                         cancelTextColor: Colors.black,
                                         confirmTextColor: Colors.white,
-                                        buttonColor:
-                                            CupertinoColors.systemRed,
+                                        buttonColor: CupertinoColors.systemRed,
                                         onConfirm: () {
                                           eventController
                                               .deleteEvent(item.pk!)
@@ -341,9 +344,7 @@ class _EventMeScreenState extends State<EventMeScreen> {
                               }
                             else
                               {
-                                GFToast.showToast(
-                                    'Failed Load Event',
-                                    context,
+                                GFToast.showToast('Failed Load Event', context,
                                     trailing: const Icon(
                                       Icons.error_outline,
                                       color: GFColors.WARNING,

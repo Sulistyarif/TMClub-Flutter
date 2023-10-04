@@ -4,7 +4,6 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:intl/intl.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:skeletons/skeletons.dart';
 import 'package:tmcapp/controller/AppController.dart';
@@ -244,8 +243,7 @@ class _EventDetilResourcesScreenState extends State<EventDetilResourcesScreen> {
                           };
 
                           if (action == "create") {
-                            SmartDialog.showLoading(
-                                msg: "Add Resources...");
+                            SmartDialog.showLoading(msg: "Add Resources...");
                             bool result =
                                 await eventController.submitCreateResources(
                                     itemAcara.value.pk!, data);
@@ -261,8 +259,7 @@ class _EventDetilResourcesScreenState extends State<EventDetilResourcesScreen> {
                                   toastBorderRadius: 5.0);
                               getDataResource();
                             } else {
-                              GFToast.showToast(
-                                  'Failed!', context,
+                              GFToast.showToast('Failed!', context,
                                   trailing: const Icon(
                                     Icons.error_outline,
                                     color: GFColors.DANGER,
@@ -272,7 +269,8 @@ class _EventDetilResourcesScreenState extends State<EventDetilResourcesScreen> {
                             }
                           }
                           if (action == "update") {
-                            SmartDialog.showLoading(msg: "Updates Resources...");
+                            SmartDialog.showLoading(
+                                msg: "Updates Resources...");
                             bool result =
                                 await eventController.submitUpdateResources(
                               item.pk!,
@@ -281,8 +279,7 @@ class _EventDetilResourcesScreenState extends State<EventDetilResourcesScreen> {
                             SmartDialog.dismiss();
                             if (result == true) {
                               int index = ListResources.indexOf(item);
-                              GFToast.showToast(
-                                  'Updates Success', context,
+                              GFToast.showToast('Updates Success', context,
                                   trailing: const Icon(
                                     Icons.check_circle,
                                     color: GFColors.SUCCESS,
@@ -293,8 +290,7 @@ class _EventDetilResourcesScreenState extends State<EventDetilResourcesScreen> {
                               // ListResources.value[index].url =data['url'];
                               getDataResource();
                             } else {
-                              GFToast.showToast(
-                                  'Failed', context,
+                              GFToast.showToast('Failed', context,
                                   trailing: const Icon(
                                     Icons.error_outline,
                                     color: GFColors.DANGER,
@@ -511,7 +507,8 @@ class _EventDetilResourcesScreenState extends State<EventDetilResourcesScreen> {
         contentPadding: const EdgeInsets.all(20),
         title: "Confirmation",
         titlePadding: const EdgeInsets.only(top: 10, bottom: 0),
-        middleText: "Are you sure you want to delete resources \n[${item.displayName}]",
+        middleText:
+            "Are you sure you want to delete resources \n[${item.displayName}]",
         backgroundColor: CupertinoColors.white,
         titleStyle: const TextStyle(color: Colors.black, fontSize: 16),
         middleTextStyle: const TextStyle(

@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as bd;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -183,8 +183,8 @@ class _ChatScreenState extends State<ChatScreen> {
           height: 4,
         ),
         inboxCount > 0
-            ? Badge(
-                shape: BadgeShape.circle,
+            ? bd.Badge(
+                shape: bd.BadgeShape.circle,
                 elevation: 0,
                 padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 5),
                 badgeColor: Colors.redAccent,

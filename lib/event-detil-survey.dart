@@ -6,7 +6,6 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:intl/intl.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:skeletons/skeletons.dart';
 import 'package:tmcapp/controller/AppController.dart';
@@ -175,8 +174,7 @@ class _EventDetilSurveyScreenState extends State<EventDetilSurveyScreen> {
                       SmartDialog.dismiss();
                       if (berhasil) {
                         GFToast.showToast(
-                            'Send Notification Success!',
-                            Get.context!,
+                            'Send Notification Success!', Get.context!,
                             trailing: const Icon(
                               Icons.check_circle,
                               color: GFColors.SUCCESS,
@@ -185,8 +183,7 @@ class _EventDetilSurveyScreenState extends State<EventDetilSurveyScreen> {
                             toastBorderRadius: 5.0);
                       } else {
                         GFToast.showToast(
-                            'Failed, Send Notification',
-                            Get.context!,
+                            'Failed, Send Notification', Get.context!,
                             trailing: const Icon(
                               Icons.error_outline,
                               color: GFColors.WARNING,
@@ -478,8 +475,10 @@ class _EventDetilSurveyScreenState extends State<EventDetilSurveyScreen> {
                   .then((response) {
                 //print(response);
                 if (response != null) {
-                  Get.toNamed('/event-result-survey',
-                      arguments: {'response': response, 'id_event':itemAcara.value.pk!});
+                  Get.toNamed('/event-result-survey', arguments: {
+                    'response': response,
+                    'id_event': itemAcara.value.pk!
+                  });
                 }
                 SmartDialog.dismiss();
               });

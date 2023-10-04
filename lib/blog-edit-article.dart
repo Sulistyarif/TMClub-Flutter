@@ -7,8 +7,8 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart' as mbs;
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:tmcapp/client.dart';
 import 'package:tmcapp/controller/AppController.dart';
 import 'package:tmcapp/controller/ImageController.dart';
@@ -244,7 +244,8 @@ class _BlogEditArticleScreenState extends State<BlogEditArticleScreen> {
                                             radius: 0);
                                       },
                                       onTap: () {
-                                        showMaterialModalBottomSheet<String>(
+                                        mbs.showMaterialModalBottomSheet<
+                                            String>(
                                           expand: false,
                                           context: context,
                                           backgroundColor: Colors.transparent,
@@ -351,7 +352,7 @@ class _BlogEditArticleScreenState extends State<BlogEditArticleScreen> {
                                                     radius: 0);
                                               },
                                               onTap: () {
-                                                showMaterialModalBottomSheet<
+                                                mbs.showMaterialModalBottomSheet<
                                                     String>(
                                                   expand: false,
                                                   context: context,
@@ -580,7 +581,7 @@ class _BlogEditArticleScreenState extends State<BlogEditArticleScreen> {
       imageController
           .setUploadResult(ImageMedia(pk: 0, display_name: "", image: ""));
       void _showModal() {
-        Future<void> future = showMaterialModalBottomSheet(
+        Future<void> future = mbs.showMaterialModalBottomSheet(
           expand: false,
           context: this.context,
           backgroundColor: Colors.transparent,

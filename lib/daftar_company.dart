@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -268,9 +267,7 @@ class _KelolaCompanyScreenState extends State<KelolaCompanyScreen> {
                               radius: 0);
                         }
                       } else {
-                        GFToast.showToast(
-                            'Opps.. Data Not Found',
-                            context,
+                        GFToast.showToast('Opps.. Data Not Found', context,
                             trailing: const Icon(
                               Icons.dangerous,
                               color: GFColors.WHITE,
@@ -496,8 +493,7 @@ class _KelolaCompanyScreenState extends State<KelolaCompanyScreen> {
                             "city": cityNameController.text,
                             "main_image": 1,
                           };
-                          SmartDialog.showLoading(
-                              msg: "Save Company Data....");
+                          SmartDialog.showLoading(msg: "Save Company Data....");
                           await companyController
                               .postingCreate(data)
                               .then((value) => {
@@ -542,8 +538,7 @@ class _KelolaCompanyScreenState extends State<KelolaCompanyScreen> {
                             "city": cityNameController.text,
                             "main_image": 1,
                           };
-                          SmartDialog.showLoading(
-                              msg: "Save Company Data....");
+                          SmartDialog.showLoading(msg: "Save Company Data....");
                           await companyController
                               .updateCompany(data, item.pk.toString())
                               .then((value) => {

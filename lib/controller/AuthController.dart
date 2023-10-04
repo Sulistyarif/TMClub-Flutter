@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,7 @@ class AuthController extends GetxController {
       .obs;
   final tabControl = BottomTabController.to;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final isShowLoginIos = true.obs;
 
   void initFirebase() {
     Authentication.initializeFirebase();
@@ -319,6 +321,61 @@ class AuthController extends GetxController {
     }
   }
 
+  Future<void> signin2(BuildContext _context) async {
+    User? _userCurrent = await Authentication.getCurrentUser();
+    if (_userCurrent != null) {
+      await Authentication.signOut(context: _context);
+    }
+    isLoading(true);
+    User? _user = await Authentication.signInWithApple(context: _context);
+    isLoading(false);
+    if (_user != null) {
+      isLogin(true);
+      await getCurrentUser();
+      await sinkronAccountMeServerToFirebase(user.value);
+      print(user.value.displayName);
+      dynamic cekUser = {
+        "uid": user.value.uid,
+        "email": user.value.email,
+        "name": user.value.displayName
+      };
+      String newToken = await getTokenUserSystem(cekUser);
+      if (user.value.token != newToken) {
+        bool updateToken = false;
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(_user.email)
+            .set(
+          {
+            "token": newToken,
+            "lastSignInTime": _user.metadata.lastSignInTime!.toIso8601String()
+          },
+          SetOptions(merge: true),
+        ).then((value) => updateToken = true);
+      }
+      appController.setAppBarRole(user.value.role);
+      Get.snackbar('Login Success', 'Welcome ${user.value.displayName}',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: CupertinoColors.black,
+          margin: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+          colorText: Colors.white);
+      tabControl.bottomTabControl.jumpToTab(0);
+      cekNotifikasiUser();
+    } else {
+      isLogin(false);
+      user(UserLogin(
+          email: "",
+          displayName: "",
+          companyName: "",
+          photoURL: "",
+          uid: "",
+          token: "",
+          idCompany: "",
+          isLogin: false,
+          role: ""));
+    }
+  }
+
   Future<void> signout(BuildContext _context) async {
     User? _user = await Authentication.getCurrentUser();
     await Authentication.signOut(context: _context);
@@ -381,6 +438,29 @@ class AuthController extends GetxController {
           user(_temp);
         }
       });
+    }
+  }
+
+  Future<void> checkShowButtonIos() async {
+    final Dio dio = Dio(
+      BaseOptions(
+        connectTimeout: 8000,
+        receiveTimeout: 5000,
+        validateStatus: (_status) {
+          if (_status! < 500) {
+            return true;
+          }
+          return false;
+        },
+      ),
+    );
+    final response = await dio.get('https://zakia-dev.my.id/tmclogin.json');
+    print('=========');
+    print(response.data['result']);
+    if (response.data != null) {
+      if (response.data['result'] == false) {
+        AuthController.to.isShowLoginIos.value = false;
+      }
     }
   }
 }

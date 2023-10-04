@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:tmcapp/controller/AppController.dart';
 import 'package:tmcapp/controller/ImageController.dart';
@@ -233,8 +232,7 @@ class _BlogEditYoutubeScreenState extends State<BlogEditYoutubeScreen> {
                                   if (value == true)
                                     {
                                       GFToast.showToast(
-                                          'Saved successfully',
-                                          context,
+                                          'Saved successfully', context,
                                           trailing: const Icon(
                                             Icons.check_circle_outline,
                                             color: GFColors.SUCCESS,
@@ -247,9 +245,7 @@ class _BlogEditYoutubeScreenState extends State<BlogEditYoutubeScreen> {
                                     }
                                   else
                                     {
-                                      GFToast.showToast(
-                                          'Failed Saved',
-                                          context,
+                                      GFToast.showToast('Failed Saved', context,
                                           trailing: const Icon(
                                             Icons.error_outline,
                                             color: GFColors.DANGER,

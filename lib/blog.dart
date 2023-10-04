@@ -9,7 +9,7 @@ import 'package:tmcapp/controller/CompanyController.dart';
 import 'package:tmcapp/controller/EventController.dart';
 import 'package:tmcapp/controller/ImageController.dart';
 import 'package:tmcapp/controller/BlogController.dart';
-import 'package:tmcapp/controller/SearchController.dart';
+import 'package:tmcapp/controller/SearchController.dart' as sc;
 import 'package:tmcapp/widget/speed_dial.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final EventController eventController = EventController.to;
   final ChatController chatController = ChatController.to;
   final ImageController imageController = ImageController.to;
-  final SearchController searchController = SearchController.to;
+  final sc.SearchController searchController = sc.SearchController.to;
   final bottomTab = BottomTabController.to;
 
   var onLoadingNetwork = true.obs;
@@ -242,16 +242,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         CupertinoColors
                                                             .lightBackgroundGray,
                                                     titleStyle: const TextStyle(
-                                                        color: CupertinoColors.darkBackgroundGray,
+                                                        color: CupertinoColors
+                                                            .darkBackgroundGray,
                                                         fontSize: 16),
-                                                    middleTextStyle:
-                                                        const TextStyle(
-                                                            color: CupertinoColors.darkBackgroundGray,
-                                                            fontSize: 14),
+                                                    middleTextStyle: const TextStyle(
+                                                        color: CupertinoColors
+                                                            .darkBackgroundGray,
+                                                        fontSize: 14),
                                                     textCancel: "Cancel",
                                                     textConfirm: "Yes, Delete",
                                                     cancelTextColor:
-                                                        CupertinoColors.darkBackgroundGray,
+                                                        CupertinoColors
+                                                            .darkBackgroundGray,
                                                     confirmTextColor:
                                                         Colors.white,
                                                     buttonColor: CupertinoColors

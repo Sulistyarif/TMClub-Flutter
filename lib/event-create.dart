@@ -1,20 +1,21 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
-import 'package:date_time_picker/date_time_picker.dart';
+// import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart' as mbs;
 import 'package:tmcapp/client.dart';
 import 'package:tmcapp/controller/AppController.dart';
 import 'package:tmcapp/controller/BottomTabController.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:tmcapp/controller/ImageController.dart';
 import 'package:tmcapp/preview-image.dart';
 import 'package:path/path.dart';
@@ -39,8 +40,9 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
   TextEditingController deskripsiController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController deadlineController = TextEditingController();
-  TextEditingController dateController =
-      TextEditingController(text: DateTime.now().toString());
+  /* TextEditingController dateController =
+      TextEditingController(text: DateTime.now().toString()); */
+  DateRangePickerController dateController = DateRangePickerController();
   TextEditingController venueController = TextEditingController();
   final imageController = Get.put(ImageController());
   final mainImageMedia = ImageMedia(pk: 0, display_name: "", image: "").obs;
@@ -52,7 +54,8 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
   void initState() {
     // TODO: implement initState
     titleController.text = "";
-    dateController.text = "";
+    // dateController.text = "";
+    dateController.displayDate = DateTime.now();
     deskripsiController.text = "";
     venueController.text = "";
     deadlineController.text = "1";
@@ -117,7 +120,7 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
                           const SizedBox(
                             height: 15,
                           ),
-                          DateTimePicker(
+                          /* DateTimePicker(
                             decoration: const InputDecoration(
                                 contentPadding: EdgeInsets.symmetric(
                                     vertical: 0, horizontal: 15),
@@ -147,6 +150,11 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
                               }
                               return null;
                             },
+                          ), */
+                          SfDateRangePicker(
+                            selectionMode: DateRangePickerSelectionMode.single,
+                            initialSelectedDate: DateTime.now(),
+                            controller: dateController,
                           ),
                           const SizedBox(
                             height: 15,
@@ -261,7 +269,7 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
                                                 radius: 0);
                                           },
                                           onTap: () {
-                                            showMaterialModalBottomSheet<
+                                            mbs.showMaterialModalBottomSheet<
                                                 String>(
                                               expand: false,
                                               context: context,
@@ -391,8 +399,7 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
                                       margin: const EdgeInsets.only(top: 15),
                                       child: is_free.value == false
                                           ? TextFormField(
-                                              inputFormatters: <
-                                                  TextInputFormatter>[
+                                              inputFormatters: <TextInputFormatter>[
                                                   CurrencyTextInputFormatter(
                                                       locale: 'id',
                                                       symbol: 'Rp. ',
@@ -439,8 +446,7 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
                                       margin: const EdgeInsets.only(top: 15),
                                       child: is_free.value == false
                                           ? TextFormField(
-                                              inputFormatters: <
-                                                  TextInputFormatter>[
+                                              inputFormatters: <TextInputFormatter>[
                                                   FilteringTextInputFormatter
                                                       .digitsOnly
                                                 ],
@@ -513,7 +519,8 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
 
                                 if (int.parse(deadlineController.text) == 0) {
                                   GFToast.showToast(
-                                      'Billing Deadline Minimal 1 Day!', context,
+                                      'Billing Deadline Minimal 1 Day!',
+                                      context,
                                       trailing: const Icon(
                                         Icons.error_outline,
                                         color: GFColors.WARNING,
@@ -525,7 +532,7 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
                                 var eventUpload = {
                                   "title": titleController.text.trim(),
                                   "venue": venueController.text.trim(),
-                                  "date": DateTime.parse(dateController.text)
+                                  "date": dateController.selectedDate!
                                       .toIso8601String(),
                                   "main_image": mainImageMedia.value.pk,
                                   "description":
@@ -539,7 +546,9 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
                                       : priceController.text
                                           .replaceAll("Rp. ", "")
                                           .replaceAll(".", ""),
-                                  "billing_deadline": is_free.value ==true ? null : int.parse(deadlineController.text)
+                                  "billing_deadline": is_free.value == true
+                                      ? null
+                                      : int.parse(deadlineController.text)
                                 };
                                 print(eventUpload);
                                 SmartDialog.showLoading(msg: "Create Event...");
@@ -614,7 +623,7 @@ class _EventCreateScreenState extends State<EventCreateScreen> {
       imageController
           .setUploadResult(ImageMedia(pk: 0, display_name: "", image: ""));
       void _showModal() {
-        Future<void> future = showMaterialModalBottomSheet(
+        Future<void> future = mbs.showMaterialModalBottomSheet(
           expand: false,
           context: this.context,
           backgroundColor: Colors.transparent,

@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -104,68 +106,130 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                     const SizedBox(
                       height: 15,
                     ),
-                    Obx(() => Container(
-                          child: authController.user.value.uid != ""
-                              ? Column(
-                                  children: [
-                                    Text(
-                                      authController.user.value.displayName,
-                                      style: const TextStyle(
-                                          color: CupertinoColors.white),
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      authController.user.value.companyName,
-                                      style: const TextStyle(
-                                          color: CupertinoColors.white,
-                                          fontSize: 13),
-                                    ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                  ],
-                                )
-                              : ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                          primary: Colors.white,
-                                          onPrimary: CupertinoColors.systemBlue)
-                                      .copyWith(
-                                          elevation:
-                                              ButtonStyleButton.allOrNull(0.0)),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    authController.signin(context);
-                                  },
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: const <Widget>[
-                                        Image(
-                                          image: AssetImage(
-                                              "assets/images/google_logo.png"),
-                                          height: 10.0,
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(left: 10),
-                                          child: Text(
-                                            'Sign in with Google',
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w600,
+                    SizedBox(
+                      child: Platform.isAndroid ||
+                              authController.isShowLoginIos.value
+                          ? Obx(() => Container(
+                                child: authController.user.value.uid != ""
+                                    ? Column(
+                                        children: [
+                                          Text(
+                                            authController
+                                                .user.value.displayName,
+                                            style: const TextStyle(
+                                                color: CupertinoColors.white),
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            authController
+                                                .user.value.companyName,
+                                            style: const TextStyle(
+                                                color: CupertinoColors.white,
+                                                fontSize: 13),
+                                          ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                        ],
+                                      )
+                                    : Column(
+                                        children: [
+                                          ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                                    primary: Colors.white,
+                                                    onPrimary: CupertinoColors
+                                                        .systemBlue)
+                                                .copyWith(
+                                                    elevation: ButtonStyleButton
+                                                        .allOrNull(0.0)),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              authController.signin(context);
+                                            },
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      0, 10, 0, 10),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: const <Widget>[
+                                                  Image(
+                                                    image: AssetImage(
+                                                        "assets/images/google_logo.png"),
+                                                    height: 10.0,
+                                                  ),
+                                                  Padding(
+                                                    padding: EdgeInsets.only(
+                                                        left: 10),
+                                                    child: Text(
+                                                      'Sign in with Google',
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                        ))
+                                          /* ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                                    primary: Colors.white,
+                                                    onPrimary: CupertinoColors
+                                                        .systemBlue)
+                                                .copyWith(
+                                                    elevation: ButtonStyleButton
+                                                        .allOrNull(0.0)),
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              try {
+                                                authController.signin2(context);
+                                              } catch (e) {
+                                                Get.snackbar(
+                                                    'title', e.toString());
+                                              }
+                                            },
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.fromLTRB(
+                                                      0, 10, 0, 10),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: const <Widget>[
+                                                  Image(
+                                                    image: AssetImage(
+                                                        "assets/images/apple_logo.png"),
+                                                    height: 10.0,
+                                                  ),
+                                                  Padding(
+                                                    padding: EdgeInsets.only(
+                                                        left: 10),
+                                                    child: Text(
+                                                      'Sign in with Apple',
+                                                      style: TextStyle(
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          ), */
+                                        ],
+                                      ),
+                              ))
+                          : const SizedBox(),
+                    )
                   ],
                 ),
               ),

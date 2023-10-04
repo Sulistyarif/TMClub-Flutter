@@ -7,7 +7,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:tmcapp/client.dart';
 import 'package:tmcapp/controller/BottomTabController.dart';
 import 'package:flutter/material.dart';
-import 'package:tmcapp/controller/SearchController.dart';
+import 'package:tmcapp/controller/SearchController.dart' as sc;
 import 'package:tmcapp/model/event_tmc.dart';
 import 'package:tmcapp/widget/skeleton.dart';
 import 'controller/AuthController.dart';
@@ -22,7 +22,7 @@ class _EventScreenState extends State<EventScreen> {
   final bottomTabControl = BottomTabController.to;
   final eventController = EventController.to;
   final authController = AuthController.to;
-  final SearchController searchController = SearchController.to;
+  final sc.SearchController searchController = sc.SearchController.to;
   late ScrollController _scrollController;
   final Color _foregroundColor = Colors.white;
   final isLoading = true.obs;

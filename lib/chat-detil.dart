@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart' as mbs;
 import 'package:tmcapp/controller/AppController.dart';
 
 import 'package:tmcapp/controller/ChatController.dart';
@@ -392,7 +392,6 @@ class _DetilChatScreenState extends State<DetilChatScreen> {
                       );
                     }
                     //Date tanggal = DateTime.now().
-
                   }
                   return Container(
                       padding: const EdgeInsets.all(20),
@@ -652,7 +651,7 @@ class _DetilChatScreenState extends State<DetilChatScreen> {
           highlightColor: const Color.fromARGB(55, 47, 47, 55),
           onTap: () {
             print(refChatMessage.image);
-            showMaterialModalBottomSheet<String>(
+            mbs.showMaterialModalBottomSheet<String>(
               expand: false,
               context: context,
               backgroundColor: Colors.transparent,
@@ -706,7 +705,7 @@ class _DetilChatScreenState extends State<DetilChatScreen> {
                       ),
                       onPressed: () {
                         print("Ambil Gambar");
-                        showMaterialModalBottomSheet<String>(
+                        mbs.showMaterialModalBottomSheet<String>(
                           expand: false,
                           context: context,
                           backgroundColor: Colors.transparent,
@@ -911,7 +910,7 @@ class _DetilChatScreenState extends State<DetilChatScreen> {
       var _tempPath = image.path; //File(image!.path);
       imageController.setchatID(chat.id);
       imageController.uploadToFirebaseStorage(_tempPath);
-      showMaterialModalBottomSheet(
+      mbs.showMaterialModalBottomSheet(
         expand: false,
         context: context,
         backgroundColor: Colors.transparent,

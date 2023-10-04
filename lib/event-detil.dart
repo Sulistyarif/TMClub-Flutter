@@ -7,13 +7,13 @@ import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:intl/intl.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart' as mbs;
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:skeletons/skeletons.dart';
 import 'package:tmcapp/client.dart';
 import 'package:tmcapp/controller/AppController.dart';
 import 'package:tmcapp/controller/BottomTabController.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:tmcapp/controller/NotifikasiController.dart';
 import 'package:tmcapp/model/event_tmc.dart';
 import 'package:tmcapp/model/event_tmc_detil.dart';
@@ -475,7 +475,7 @@ class _EventDetilScreenState extends State<EventDetilScreen> {
                       type: GFButtonType.outline,
                       color: GFColors.FOCUS,
                       onPressed: () async {
-                        showMaterialModalBottomSheet(
+                        mbs.showMaterialModalBottomSheet(
                           expand: false,
                           context: this.context,
                           backgroundColor: Colors.transparent,
@@ -684,7 +684,7 @@ class _EventDetilScreenState extends State<EventDetilScreen> {
                       type: GFButtonType.outline,
                       color: GFColors.FOCUS,
                       onPressed: () async {
-                        showMaterialModalBottomSheet(
+                        mbs.showMaterialModalBottomSheet(
                           expand: false,
                           context: this.context,
                           backgroundColor: Colors.transparent,
@@ -849,7 +849,7 @@ class _EventDetilScreenState extends State<EventDetilScreen> {
             type: GFButtonType.outline,
             color: GFColors.DARK,
             onPressed: () {
-              showMaterialModalBottomSheet(
+              mbs.showMaterialModalBottomSheet(
                 expand: false,
                 context: this.context,
                 backgroundColor: Colors.transparent,
@@ -1280,7 +1280,7 @@ class _EventDetilScreenState extends State<EventDetilScreen> {
       SmartDialog.dismiss();
       if (value == true) {
         //Get.defaultDialog(title: )
-        showMaterialModalBottomSheet<String>(
+        mbs.showMaterialModalBottomSheet<String>(
           expand: false,
           context: context,
           backgroundColor: Colors.transparent,

@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:skeletons/skeletons.dart';
 import 'package:tmcapp/controller/AppController.dart';
@@ -480,6 +479,7 @@ class _InvoiceListScreenState extends State<InvoiceListScreen> {
   }
 
   void showDetailInvoice(Invoice invoice) {
-      Get.toNamed('/invoice-detil', arguments: {'invoice_number': invoice.invoiceNumber});
+    Get.toNamed('/invoice-detil',
+        arguments: {'invoice_number': invoice.invoiceNumber});
   }
 }
